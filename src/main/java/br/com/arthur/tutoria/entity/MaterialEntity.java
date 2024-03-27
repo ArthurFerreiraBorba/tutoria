@@ -1,7 +1,9 @@
 package br.com.arthur.tutoria.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "materiais")
 public class MaterialEntity {

@@ -1,10 +1,12 @@
 package br.com.arthur.tutoria.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "agendas")
 public class AgendaEntity {
