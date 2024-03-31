@@ -1,5 +1,7 @@
 package br.com.arthur.tutoria.entity;
 
+import br.com.arthur.tutoria.dto.AgendaDto;
+import br.com.arthur.tutoria.dto.AlunoDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,4 +31,15 @@ public class AgendaEntity {
     private String tema;
     @Column(length = 300)
     private String descricao;
+
+    public AgendaEntity() {};
+
+    public AgendaEntity(AgendaDto agendaDto) {
+        this.aluno = agendaDto.aluno();
+        this.tutor = agendaDto.tutor();
+        this.data = agendaDto.data();
+        this.status = agendaDto.status();
+        this.tema = agendaDto.tema();
+        this.descricao = agendaDto.descricao();
+    };
 }
