@@ -2,6 +2,7 @@ package br.com.arthur.tutoria.entity;
 
 import br.com.arthur.tutoria.dto.AgendaDto;
 import br.com.arthur.tutoria.dto.AlunoDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,8 +23,6 @@ public class AgendaEntity {
     @ManyToOne
     @JoinColumn(nullable = false, name = "tutor_id")
     private TutorEntity tutor;
-    @OneToMany (mappedBy = "agenda")
-    private List<MaterialEntity> materiais;
     private LocalDate data;
     @Column(length = 50)
     private String status;

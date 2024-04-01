@@ -10,9 +10,9 @@ public interface AgendaService {
 
     List<AgendaDto> buscarTodos();
 
-    AgendaDto criar(AgendaDto aluno);
+    AgendaDto criar(AgendaDto agenda);
 
     void deletar(Long id);
 
-    void atualizar(AgendaDto aluno);
+    void atualizar(AgendaDto agenda);
 }
