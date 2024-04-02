@@ -8,7 +8,11 @@ public interface AgendaService {
 
     List<AgendaDto> buscarPorAluno(Long AlunoId);
 
-    List<AgendaDto> buscarPorTutor(Long AlunoId);
+    List<AgendaDto> buscarProximosAgendamentosPorAluno(long alunoId);
+
+    List<AgendaDto> buscarPorTutor(Long TutorId);
+
+    List<AgendaDto> buscarProximosAgendamentosPorTutor(long tutorId);
 
     AgendaDto buscarUm(Long id);
 

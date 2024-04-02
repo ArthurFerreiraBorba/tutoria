@@ -8,6 +8,7 @@ import br.com.arthur.tutoria.exception.Error.NotFoundExceptionEntity;
 import br.com.arthur.tutoria.repository.AgendaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
@@ -23,14 +24,28 @@ public class AgendaServiceImpl implements AgendaService {
     @Override
     public List<AgendaDto> buscarPorAluno(Long alunoId) {
         List<AgendaEntity> agendas = repository.buscarAgendaPorAluno(new AlunoEntity(alunoId));
-        agendas = agendas.stream().sorted(Comparator.comparing(AgendaEntity::getData)).toList();
+        agendas = ordenarData(agendas);
+        return toListDto(agendas);
+    }
+
+    @Override
+    public List<AgendaDto> buscarProximosAgendamentosPorAluno(long alunoId) {
+        List<AgendaEntity> agendas = repository.buscarProximosAgendamentosPorAluno(new AlunoEntity(alunoId));
+        agendas = ordenarData(agendas);
         return toListDto(agendas);
     }
 
     @Override
     public List<AgendaDto> buscarPorTutor(Long tutorId) {
         List<AgendaEntity> agendas = repository.buscarAgendaPorTutor(new TutorEntity(tutorId));
-        agendas = agendas.stream().sorted(Comparator.comparing(AgendaEntity::getData)).toList();
+        agendas = ordenarData(agendas);
+        return toListDto(agendas);
+    }
+
+    @Override
+    public List<AgendaDto> buscarProximosAgendamentosPorTutor(long tutorId) {
+        List<AgendaEntity> agendas = repository.buscarProximosAgendamentosPorTutor(new TutorEntity(tutorId));
+        agendas = ordenarData(agendas);
         return toListDto(agendas);
     }
 
@@ -76,5 +91,8 @@ public class AgendaServiceImpl implements AgendaService {
 
     public AgendaEntity buscarId(Long id) {
         return repository.findById(id).orElseThrow( () -> new NotFoundExceptionEntity("Agenda com id " + id + " não encontrado"));
+    }
+    public List<AgendaEntity> ordenarData(List<AgendaEntity> agendas) {
+        return agendas.stream().sorted(Comparator.comparing(AgendaEntity::getData)).toList();
     }
 }

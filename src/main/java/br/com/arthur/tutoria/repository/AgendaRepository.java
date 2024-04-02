@@ -34,6 +34,16 @@ public interface AgendaRepository extends JpaRepository<AgendaEntity, Long> {
 
     @Query("Select agenda" +
             " from AgendaEntity agenda" +
+            " where agenda.aluno = :alunoId and agenda.data >= CURRENT_DATE()")
+    List<AgendaEntity> buscarProximosAgendamentosPorAluno(AlunoEntity alunoId);
+
+    @Query("Select agenda" +
+            " from AgendaEntity agenda" +
             " where agenda.tutor = :tutorId")
     List<AgendaEntity> buscarAgendaPorTutor(TutorEntity tutorId);
+
+    @Query("Select agenda" +
+            " from AgendaEntity agenda" +
+            " where agenda.tutor = :tutorId and agenda.data >= CURRENT_DATE()")
+    List<AgendaEntity> buscarProximosAgendamentosPorTutor(TutorEntity tutorId);
 }
