@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface AgendaService {
 
+    List<AgendaDto> buscarPorAluno(Long AlunoId);
+
+    List<AgendaDto> buscarPorTutor(Long AlunoId);
+
     AgendaDto buscarUm(Long id);
 
     List<AgendaDto> buscarTodos();

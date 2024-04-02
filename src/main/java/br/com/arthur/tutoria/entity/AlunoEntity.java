@@ -17,6 +17,10 @@ public class AlunoEntity {
 
     public AlunoEntity() {};
 
+    public AlunoEntity(long alunoId) {
+        this.id = alunoId;
+    }
+
     public AlunoEntity(AlunoDto alunoDto) {
         this.nome = alunoDto.nome();
         this.idade = alunoDto.idade();

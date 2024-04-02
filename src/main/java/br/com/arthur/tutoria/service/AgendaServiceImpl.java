@@ -2,23 +2,36 @@ package br.com.arthur.tutoria.service;
 
 import br.com.arthur.tutoria.dto.AgendaDto;
 import br.com.arthur.tutoria.entity.AgendaEntity;
+import br.com.arthur.tutoria.entity.AlunoEntity;
+import br.com.arthur.tutoria.entity.TutorEntity;
 import br.com.arthur.tutoria.exception.Error.NotFoundExceptionEntity;
 import br.com.arthur.tutoria.repository.AgendaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class AgendaServiceImpl implements AgendaService {
 
     private final AgendaRepository repository;
-    private final TutorService tutorService;
-    private final AlunoService alunoService;
 
     public AgendaServiceImpl(AgendaRepository repository, TutorService tutorService, AlunoService alunoService) {
         this.repository = repository;
-        this.tutorService = tutorService;
-        this.alunoService = alunoService;
+    }
+
+    @Override
+    public List<AgendaDto> buscarPorAluno(Long alunoId) {
+        List<AgendaEntity> agendas = repository.buscarAgendaPorAluno(new AlunoEntity(alunoId));
+        agendas = agendas.stream().sorted(Comparator.comparing(AgendaEntity::getData)).toList();
+        return toListDto(agendas);
+    }
+
+    @Override
+    public List<AgendaDto> buscarPorTutor(Long tutorId) {
+        List<AgendaEntity> agendas = repository.buscarAgendaPorTutor(new TutorEntity(tutorId));
+        agendas = agendas.stream().sorted(Comparator.comparing(AgendaEntity::getData)).toList();
+        return toListDto(agendas);
     }
 
     @Override
@@ -30,9 +43,7 @@ public class AgendaServiceImpl implements AgendaService {
     @Override
     public List<AgendaDto> buscarTodos() {
         List<AgendaEntity> agendas = repository.findAll();
-        return agendas.stream()
-                .map(this::toDto)
-                .toList();
+        return toListDto(agendas);
     }
 
     @Override
@@ -55,6 +66,12 @@ public class AgendaServiceImpl implements AgendaService {
 
     public AgendaDto toDto (AgendaEntity agenda) {
         return new AgendaDto(agenda.getId(), agenda.getAluno(), agenda.getTutor(), agenda.getData(), agenda.getStatus(), agenda.getTema(), agenda.getDescricao());
+    }
+
+    public List<AgendaDto> toListDto (List<AgendaEntity> agendas) {
+        return agendas.stream()
+                .map(this::toDto)
+                .toList();
     }
 
     public AgendaEntity buscarId(Long id) {

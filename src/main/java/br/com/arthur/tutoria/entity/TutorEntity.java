@@ -19,6 +19,11 @@ public class TutorEntity {
 
     public TutorEntity() {};
 
+    public TutorEntity(long id) {
+        this.id = id;
+    };
+
+
     public TutorEntity(TutorDto tutorDto) {
         this.nome = tutorDto.nome();
         this.especialidade = tutorDto.especialidade();

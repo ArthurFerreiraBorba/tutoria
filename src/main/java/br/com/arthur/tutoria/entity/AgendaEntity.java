@@ -1,13 +1,10 @@
 package br.com.arthur.tutoria.entity;
 
 import br.com.arthur.tutoria.dto.AgendaDto;
-import br.com.arthur.tutoria.dto.AlunoDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Entity
